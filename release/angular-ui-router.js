@@ -2541,7 +2541,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       }
       var abstract = toState[abstractKey];
       if (typeof abstract === 'string') {
-        return $state.transitionTo(abstract. toParams, options);
+        return $state.transitionTo(abstract, toParams, options);
       } else if (abstract === true) {
         throw new Error("Cannot transition to abstract state '" + to + "'");
       }
