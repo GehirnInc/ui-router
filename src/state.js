@@ -192,10 +192,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
     states[name] = state;
 
     // Register the state in the global state list and with $urlRouter if necessary.
-    if (!state[abstractKey] && state.url) {
+    if ((!state[abstractKey] || typeof state[abstractKey] === 'string') &&
+        state.url) {
       $urlRouterProvider.when(state.url, ['$match', '$stateParams', function ($match, $stateParams) {
         if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
-          $state.transitionTo(state, $match, { location: false });
+          $state.transitionTo(state, $match, { location: 'replace' });
         }
       }]);
     }
