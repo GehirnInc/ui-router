@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.2.11-dev-2014-11-17
+ * @version v0.2.11-dev-2014-11-19
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -2184,7 +2184,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
         state.url) {
       $urlRouterProvider.when(state.url, ['$match', '$stateParams', function ($match, $stateParams) {
         if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
-          $state.transitionTo(state, $match, { location: 'replace' });
+          $state.transitionTo(state, $match, { location: false });
         }
       }]);
     }
@@ -2771,6 +2771,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       }
       var abstract = toState[abstractKey];
       if (typeof abstract === 'string') {
+        options.location = 'replace';
         return $state.transitionTo(abstract, toParams, options);
       } else if (abstract === true) {
         throw new Error("Cannot transition to abstract state '" + to + "'");
